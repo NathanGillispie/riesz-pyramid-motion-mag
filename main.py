@@ -14,13 +14,13 @@ the YCbCr stuff because that's what the authors use.
 '''
 
 # Magnification factor. Normal range: [1,10]
-ALPHA = 14
+ALPHA = 10
 # Temporal filter parameters (Hz)
-f_lo = 2
-f_hi = 4
+f_lo = .5
+f_hi = 1.2
 # Your video sampling rate (frames/sec)
 # Important to get temporal filters right :)
-fs = 24
+fs = 15.003
 
 from riezs_pyramid import buildNewPyr, reconNewPyr
 import numpy as np
@@ -131,7 +131,7 @@ def frames_to_image_sequence(frames, frames_dir='frames_out'):
     for i in tqdm(range(numFrames), ncols=80, desc='Write Frame'):
         im_data = frames[i].transpose((2,1,0))
         # new_image = Image.fromarray(im_data.astype('uint8'),'YCbCr').convert('RGB')
-        new_image = Image.fromarray(im_data.astype('uint8'),'RGB')
+        new_image = Image.fromarray(im_data.astype('uint8'))
         new_image.save(f'{frames_dir}/{i:03g}.png')
 
 
@@ -220,7 +220,7 @@ def reconstruct_amplified_pyr(pyr_frames, amplified_pyr_frames):
     reconstructed frames.
 
     DON'T FORGET TO INCLUDE chromAttenuation
-    DON'T FORGET TO CLAMP THE OUTPUT AFTER ADDING MAGNIFICATION
+    DON'T FORGET TO CLIP THE OUTPUT AFTER ADDING MAGNIFICATION
     '''
     for l in range(len(pyr_frames)):
         pyr_frames[l] = amplified_pyr_frames[l]
