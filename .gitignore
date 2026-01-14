@@ -1,0 +1,13 @@
+me/
+EVM_Matlab/
+frames_in/
+frames_out/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codz]
+*$py.class
+
+# C extensions
+*.so
+
